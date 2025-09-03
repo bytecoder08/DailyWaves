@@ -1,32 +1,26 @@
 package com.bytecoder.dailywaves.ui.detail
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
+import com.bytecoder.dailywaves.R
 import com.bytecoder.dailywaves.databinding.FragmentNewsDetailBinding
 
 class NewsDetailFragment : Fragment() {
 
     private var _binding: FragmentNewsDetailBinding? = null
     private val binding get() = _binding!!
-
-    private var title: String? = null
-    private var content: String? = null
-    private var imageUrl: String? = null
-    private var url: String? = null
+    private var articleUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = it.getString("title")
-            content = it.getString("content")
-            imageUrl = it.getString("imageUrl")
-            url = it.getString("url")
+            articleUrl = it.getString("url")
         }
     }
 
@@ -36,24 +30,49 @@ class NewsDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.tvTitle.text = title ?: ""
-        binding.tvContent.text = content ?: ""
-        Glide.with(binding.ivHeader).load(imageUrl).centerCrop().into(binding.ivHeader)
+        super.onViewCreated(view, savedInstanceState)
 
-        binding.btnReadMore.setOnClickListener {
-            url?.let { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it))) }
-        }
-        binding.btnShare.setOnClickListener {
-            val share = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, "$title\n\n$url")
+        requireActivity().findViewById<View>(R.id.bottomNavigation)?.visibility = View.GONE
+
+        binding.webView.apply {
+            settings.javaScriptEnabled = true
+            webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.swipeRefresh.isRefreshing = false
+                }
             }
-            startActivity(Intent.createChooser(share, "Share via"))
+            articleUrl?.let { loadUrl(it) }
+
+            setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                binding.swipeRefresh.isEnabled = scrollY == 0
+            }
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.webView.reload()
+        }
+
+        binding.fabShare.setOnClickListener {
+            articleUrl?.let { url ->
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, "Check out this news")
+                    putExtra(Intent.EXTRA_TEXT, url)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share via"))
+            }
+        }
+        requireActivity().title = "Article"
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        requireActivity().findViewById<View>(R.id.bottomNavigation)?.visibility = View.VISIBLE
         _binding = null
     }
 }

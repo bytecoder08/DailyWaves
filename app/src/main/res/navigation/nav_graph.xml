@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/newsListFragment">
+
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="com.bytecoder.dailywaves.ui.NewsListFragment"
+        android:label="Top News"
+        tools:layout="@layout/fragment_news_list" >
+        <action
+            android:id="@+id/action_to_articleDetail"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="com.bytecoder.dailywaves.ui.ArticleDetailFragment"
+        android:label="Article Detail"
+        tools:layout="@layout/fragment_article_detail" />
+</navigation>

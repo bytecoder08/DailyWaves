@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bytecoder.dailywaves.R
 import com.bytecoder.dailywaves.data.repository.NewsRepository
 import com.bytecoder.dailywaves.databinding.FragmentTopNewsBinding
@@ -46,7 +47,13 @@ class TopNewsFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_topNewsFragment_to_newsDetailFragment, args)
         }
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext()) // 👈 add this
+            adapter = this@TopNewsFragment.adapter
+            setHasFixedSize(true) // optional, for performance if item size is fixed
+        }
+
+//        binding.recyclerView.adapter = adapter
 
         // Pull to refresh reloads Indian news
         binding.swipeRefresh.setOnRefreshListener { loadNews() }

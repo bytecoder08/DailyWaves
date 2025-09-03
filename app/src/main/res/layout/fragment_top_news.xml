@@ -1,40 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Shimmer loading placeholder -->
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerLayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:shimmer_auto_start="true"
-        app:shimmer_duration="1500">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <!-- Shimmer container -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-            <!-- Placeholder Card -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                android:background="?attr/colorSurfaceVariant" />
-        </LinearLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <!-- 3 skeleton cards -->
+                <View android:layout_width="match_parent" android:layout_height="180dp" android:layout_marginBottom="16dp" android:background="?attr/colorSurfaceVariant"/>
+                <View android:layout_width="match_parent" android:layout_height="180dp" android:layout_marginBottom="16dp" android:background="?attr/colorSurfaceVariant"/>
+                <View android:layout_width="match_parent" android:layout_height="180dp" android:layout_marginBottom="16dp" android:background="?attr/colorSurfaceVariant"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <!-- News List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerNews"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:clipToPadding="false"
-        android:visibility="gone"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:clipToPadding="false"/>
+
+        <!-- Error state -->
+        <LinearLayout
+            android:id="@+id/stateError"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvError"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Something went wrong"/>
+        </LinearLayout>
+
+    </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

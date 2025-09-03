@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_search"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- search (if any) -->
+    <item
+        android:id="@+id/action_search"
         android:title="Search"
-        android:icon="@drawable/ic_search"
-        android:showAsAction="ifRoom"/>
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
+
+    <!-- NEW: Toggle News Source -->
+    <item
+        android:id="@+id/action_toggle_source"
+        android:title="Switch Source"
+        android:icon="@drawable/ic_india"
+        app:showAsAction="ifRoom|withText" />
 </menu>

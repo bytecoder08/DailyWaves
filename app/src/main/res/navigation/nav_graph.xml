@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/newsListFragment">
+    app:startDestination="@id/topNewsFragment">
 
     <fragment
-        android:id="@+id/newsListFragment"
-        android:name="com.bytecoder.dailywaves.ui.NewsListFragment"
+        android:id="@+id/topNewsFragment"
+        android:name="com.bytecoder.dailywaves.ui.topnews.TopNewsFragment"
         android:label="Top News"
-        tools:layout="@layout/fragment_news_list" >
+        tools:layout="@layout/fragment_top_news">
         <action
-            android:id="@+id/action_to_articleDetail"
-            app:destination="@id/articleDetailFragment" />
+            android:id="@+id/action_topNewsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/articleDetailFragment"
-        android:name="com.bytecoder.dailywaves.ui.ArticleDetailFragment"
-        android:label="Article Detail"
-        tools:layout="@layout/fragment_article_detail" />
+        android:id="@+id/newsDetailFragment"
+        android:name="com.bytecoder.dailywaves.ui.detail.NewsDetailFragment"
+        android:label="News Detail"
+        tools:layout="@layout/fragment_news_detail">
+        <argument android:name="imageUrl" app:argType="string" />
+        <argument android:name="title" app:argType="string" />
+        <argument android:name="content" app:argType="string" />
+        <argument android:name="url" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.bytecoder.dailywaves.ui.categories.CategoriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="com.bytecoder.dailywaves.ui.bookmarks.BookmarksFragment"
+        android:label="Bookmarks"
+        tools:layout="@layout/fragment_bookmarks" />
+
 </navigation>

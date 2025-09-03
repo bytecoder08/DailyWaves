@@ -1,55 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/newsCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:strokeColor="?attr/colorOutline"
-    app:strokeWidth="1dp">
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <!-- News Thumbnail -->
         <ImageView
-            android:id="@+id/imgNews"
+            android:id="@+id/ivThumb"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="News Image" />
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"/>
 
-        <!-- Title & Source -->
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Breaking News Title"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
-                android:textColor="?attr/colorOnSurface"
-                android:maxLines="2"
-                android:ellipsize="end"/>
-
-            <TextView
-                android:id="@+id/txtSource"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Source • 2h ago"
-                android:textAppearance="?attr/textAppearanceBodySmall"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:layout_marginTop="4dp"/>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textSize="14sp"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

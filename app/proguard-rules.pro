@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# Keep model classes used by Gson
+-keepclassmembers class com.bytecoder.dailywaves.data.model.** { *; }
+-keepattributes *Annotation*
